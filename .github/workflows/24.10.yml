@@ -162,7 +162,7 @@ jobs:
         KERNEL_AUTO_LATEST: true
        # KERNEL_REPO_URL: 自定义某个特定内核
         KERNEL_REPO_URL: breakingbadboy/OpenWrt
-        KERNEL_VERSION_NAME: 6.6.y
+        KERNEL_VERSION_NAME: 6.12.y
         
     - name: 整理文件
       run: mv /opt/openwrt_packit/output/* /workdir/upload/
