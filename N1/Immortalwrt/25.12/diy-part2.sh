@@ -38,7 +38,9 @@ git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/nikki
 # OpenClash
 git clone https://github.com/vernesong/OpenClash package/openclash
 
-
+# 注册所有新克隆的包到 feeds
+./scripts/feeds update -a
+./scripts/feeds install -a
 
 # 修正俩处错误的翻译
 sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
