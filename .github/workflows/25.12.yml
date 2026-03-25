@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0325：增加passwall2 去除dockerman 其他插件有吗？
+              2026-0325：测试插件有了吗？
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
