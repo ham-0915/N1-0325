@@ -220,7 +220,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0325：测试插件有了吗？
+              2026-0326：测试插件有了吗？
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
