@@ -16,13 +16,13 @@ rm -rf feeds/luci/applications/luci-app-passwall
 # 移除 feeds 自带的 mosdns（避免与 sbwml v5 版本冲突）
 rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 
-# 注册标准 feeds（不带 -p 参数，该版本不支持）
+# 注册标准 feeds
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
 # ============================================================
 # 以下所有 git clone 必须在 feeds install -a 之后执行
-# 目的：覆盖 feeds 里可能残留的同名旧包，确保用指定的版本
+# 目的：覆盖 feeds 里可能残留的同名旧包，确保用我们指定的版本
 # ============================================================
 
 # Passwall 官方包（核心库 + LuCI）
