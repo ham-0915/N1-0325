@@ -223,7 +223,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。---
+              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。--- 去除dockerman。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
