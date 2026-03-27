@@ -138,10 +138,10 @@ jobs:
         mkdir -p files/etc/uci-defaults
         cat <<EOF > files/etc/uci-defaults/99-fix-ui
         #!/bin/sh
-        # 强制清理 25.12 的顽固 UI 缓存
-        rm -rf /tmp/luci-indexcache /tmp/luci-modulecache
-        /sbin/luci-reload
+        # 强制清理 25.12 的顽固 UI 缓存---
+        rm -rf /tmp/luci-indexcache /tmp/luci-modulecache /tmp/luci-modulecache/*
         /etc/init.d/rpcd restart
+        /etc/init.d/uhttpd restart
         exit 0
         EOF
         chmod +x files/etc/uci-defaults/99-fix-ui
@@ -193,7 +193,7 @@ jobs:
         PACKAGE_SOC: s905d
         KERNEL_AUTO_LATEST: true
         KERNEL_REPO_URL: breakingbadboy/OpenWrt
-        KERNEL_VERSION_NAME: 6.12.y
+        KERNEL_VERSION_NAME: 6.6.y
         
     - name: 整理文件
       run: mv /opt/openwrt_packit/output/* /workdir/upload/
@@ -223,7 +223,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。
+              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。---
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
