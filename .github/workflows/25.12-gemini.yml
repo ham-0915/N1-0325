@@ -125,11 +125,11 @@ jobs:
         cd openwrt
         make defconfig
         # 强制保护我们要的插件
-        PLUGINS="luci-app-passwall luci-app-passwall2 luci-app-nikki luci-app-lucky luci-app-openclash luci-app-adguardhome luci-app-softethervpn luci-app-dockerman luci-compat"
-        for plugin in $PLUGINS; do
-          grep -q "CONFIG_PACKAGE_$plugin=y" .config || echo "CONFIG_PACKAGE_$plugin=y" >> .config
-        done
-        make defconfig
+        # PLUGINS="luci-app-passwall luci-app-passwall2 luci-app-nikki luci-app-lucky luci-app-openclash luci-app-adguardhome luci-app-softethervpn luci-app-dockerman luci-compat"
+        # for plugin in $PLUGINS; do
+        # grep -q "CONFIG_PACKAGE_$plugin=y" .config || echo "CONFIG_PACKAGE_$plugin=y" >> .config
+        # done
+        # make defconfig
         make download -j8
 
     - name: 注入菜单修复脚本
@@ -223,7 +223,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。--- 去除dockerman。
+              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。--- 增加到1024。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
