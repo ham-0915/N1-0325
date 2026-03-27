@@ -30,15 +30,15 @@ git clone https://github.com/gdy666/luci-app-lucky.git --depth=1 package/lucky
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdns
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
-git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
+# git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
 
 # 6. 【核心修复】强制适配 25.12 的 UI 渲染
 find package/ -name "Makefile" | xargs sed -i 's/+luci-base/+luci-lib-base +luci-compat/g' 2>/dev/null || true
 find package/ -name "Makefile" | xargs sed -i 's/DEPENDS:=luci-base/DEPENDS:=luci-lib-base +luci-compat/g' 2>/dev/null || true
 
 # 7. 更新并安装 feeds
-./scripts/feeds update -a
-./scripts/feeds install -a
+# ./scripts/feeds update -a
+./scripts/feeds install -a -f
 
 # 8. 修复 SoftEther 权限并针对 feeds 原生包补丁
 find feeds/luci/ -name "Makefile" | xargs sed -i 's/+luci-base/+luci-lib-base +luci-compat/g' 2>/dev/null || true
