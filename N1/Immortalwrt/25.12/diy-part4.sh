@@ -1,10 +1,11 @@
 #!/bin/bash
+set -e  # 任何命令失败立即退出，防止静默跳过错误
 
 # 1. 基础配置
 sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/files/bin/config_generate
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
 
-# 2. 注入 kiddin9 软件源 (修正语法)
+# 2. 注入 kiddin9 软件源
 mkdir -p package/base-files/files/etc/opkg
 echo "src/gz kiddin9 https://dl.openwrt.ai/releases/25.12/packages/aarch64_cortex-a53/kiddin9" > package/base-files/files/etc/opkg/customfeeds.conf
 
@@ -17,30 +18,32 @@ rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2sock
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-passwall2
 rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
+# 清理 feeds 旧版 openlist，防止顶替 openlist2（日志证实旧版会被自动安装顶上）
+rm -rf feeds/packages/net/openlist
+rm -rf feeds/luci/applications/luci-app-openlist
+# 清理 feeds 自带的 adguardhome luci 界面（避免与 kenzok78 版冲突）
+rm -rf feeds/luci/applications/luci-app-adguardhome
 
-# 5. 克隆 Passwall 1 和 Passwall 2
-# 注意：它们共用同一个 packages 依赖仓库
+# 5. 克隆 Passwall 2（不克隆 Passwall 1，否则 feeds install -a -f 会把它强制装入固件）
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
 rm -rf package/passwall-packages/shadowsocksr-libev
-# git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall2.git package/passwall2
 
-# 其他插件
+# 6. 其他插件
 git clone https://github.com/ophub/luci-app-amlogic --depth=1 package/amlogic
 git clone https://github.com/gdy666/luci-app-lucky.git --depth=1 package/lucky
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdns
-git clone https://github.com/sbwml/luci-app-openlist2-----------------------------------
+git clone https://github.com/sbwml/luci-app-openlist2 --depth=1 package/openlist2
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
-# git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
+# adguardhome：使用 kenzok78 版（含完整 LuCI 界面），feeds 原版只有核心二进制无界面
+git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
 
-# 6. 更新并安装 feeds
-# ./scripts/feeds update -a
+# 7. 更新并安装 feeds
 ./scripts/feeds install -a -f
 
-# 7. 修正 25.12 兼容层的按钮翻译
+# 8. 修正 25.12 兼容层的按钮翻译
 if [ -f feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm ]; then
     sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
     sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
 fi
-
