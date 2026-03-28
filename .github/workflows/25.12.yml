@@ -15,7 +15,7 @@ env:
   FEEDS_CONF: N1/Immortalwrt/25.12/TL-feeds.conf.default
   CONFIG_FILE: N1/Immortalwrt/25.12/nan-25.12.config
   DIY_P1_SH: N1/Immortalwrt/25.12/diy-part1.sh
-  DIY_P2_SH: N1/Immortalwrt/25.12/diy-part2.sh
+  DIY_P2_SH: N1/Immortalwrt/25.12/diy-part4.sh
   FILES: N1/Immortalwrt/25.12/files
   TZ: Asia/Shanghai
 
@@ -51,7 +51,7 @@ jobs:
         remove-docker-images: 'true'
 
     - name: 检查Actions
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
 
 
@@ -186,7 +186,7 @@ jobs:
       id: create_release
       run: |
         echo "RELEASE_DATE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
-        echo "RELEASE_TAG=N1-25.12_$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+        echo "RELEASE_TAG=N1-25.124_$(date +%Y%m%d)" >> $GITHUB_OUTPUT
 
     - name: 上传发布
       uses: ncipollo/release-action@v1
@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0325：测试插件有了吗？
+              2026-0328：测试插件有了吗？没有乱七八糟的脚步。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
