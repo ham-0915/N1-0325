@@ -177,7 +177,7 @@ jobs:
         PACKAGE_SOC: s905d
         KERNEL_AUTO_LATEST: true
         KERNEL_REPO_URL: breakingbadboy/OpenWrt
-        KERNEL_VERSION_NAME: 6.12.y
+        KERNEL_VERSION_NAME: 6.6.y
         
     - name: 整理文件
       run: mv /opt/openwrt_packit/output/* /workdir/upload/
@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0328：测试插件有了吗？没有乱七八糟的脚步。
+              2026-0328：部分插件有了，去掉passwall，dockerman，尝试修复ssh 增加openlist.
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
