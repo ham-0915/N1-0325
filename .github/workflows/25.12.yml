@@ -186,7 +186,7 @@ jobs:
       id: create_release
       run: |
         echo "RELEASE_DATE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
-        echo "RELEASE_TAG=N1-25.124_$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+        echo "RELEASE_TAG=N1-25.12_$(date +%Y%m%d)" >> $GITHUB_OUTPUT
 
     - name: 上传发布
       uses: ncipollo/release-action@v1
