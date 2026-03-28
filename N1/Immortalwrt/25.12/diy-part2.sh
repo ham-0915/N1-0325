@@ -21,6 +21,7 @@ rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 # 5. 克隆 Passwall 1 和 Passwall 2
 # 注意：它们共用同一个 packages 依赖仓库
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
+rm -rf package/passwall-packages/shadowsocksr-libev
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall2.git package/passwall2
 
@@ -32,21 +33,16 @@ git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikk
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
 # git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
 
-# 6. 【核心修复】强制适配 25.12 的 UI 渲染
-find package/ -name "Makefile" | xargs sed -i 's/+luci-base/+luci-lib-base +luci-compat/g' 2>/dev/null || true
-find package/ -name "Makefile" | xargs sed -i 's/DEPENDS:=luci-base/DEPENDS:=luci-lib-base +luci-compat/g' 2>/dev/null || true
-
-# 7. 更新并安装 feeds
+# 6. 更新并安装 feeds
 # ./scripts/feeds update -a
 ./scripts/feeds install -a -f
 
-# 8. 修复 SoftEther 权限并针对 feeds 原生包补丁
+# 7. 修复 SoftEther 权限并针对 feeds 原生包补丁
 find feeds/luci/ -name "Makefile" | xargs sed -i 's/+luci-base/+luci-lib-base +luci-compat/g' 2>/dev/null || true
 [ -d feeds/luci/applications/luci-app-softethervpn ] && \
 find feeds/luci/applications/luci-app-softethervpn -name "*.json" | xargs sed -i 's/"readonly": true/"readonly": false/g' 2>/dev/null || true
 
-# 9. 【关键】在 feeds 安装后执行你问的那两行 sed
-# 修正 25.12 兼容层的按钮翻译
+# 8. 修正 25.12 兼容层的按钮翻译
 if [ -f feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm ]; then
     sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
     sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
