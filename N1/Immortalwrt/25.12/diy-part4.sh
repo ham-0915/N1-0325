@@ -22,13 +22,14 @@ rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 # 注意：它们共用同一个 packages 依赖仓库
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
 rm -rf package/passwall-packages/shadowsocksr-libev
-git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
+# git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall2.git package/passwall2
 
 # 其他插件
 git clone https://github.com/ophub/luci-app-amlogic --depth=1 package/amlogic
 git clone https://github.com/gdy666/luci-app-lucky.git --depth=1 package/lucky
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdns
+git clone https://github.com/sbwml/luci-app-openlist2-----------------------------------
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
 # git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
