@@ -1,4 +1,4 @@
-name: 25.12-gemini
+name: 25.12-claude
 
 on:
   repository_dispatch:
@@ -51,9 +51,7 @@ jobs:
         remove-docker-images: 'true'
 
     - name: 检查Actions
-      uses: actions/checkout@v4
-
-
+      uses: actions/checkout@v6
 
     - name: 检查服务器配置
       run: |
@@ -125,27 +123,13 @@ jobs:
         cd openwrt
         make defconfig
         # 强制保护我们要的插件
-        # PLUGINS="luci-app-passwall luci-app-passwall2 luci-app-nikki luci-app-lucky luci-app-openclash luci-app-adguardhome luci-app-softethervpn luci-app-dockerman luci-compat"
-        # for plugin in $PLUGINS; do
-        # grep -q "CONFIG_PACKAGE_$plugin=y" .config || echo "CONFIG_PACKAGE_$plugin=y" >> .config
-        # done
-        # make defconfig
+        PLUGINS="luci-app-passwall luci-app-passwall2 luci-app-nikki luci-app-lucky luci-app-openclash luci-app-adguardhome luci-app-softethervpn luci-app-dockerman luci-compat"
+        for plugin in $PLUGINS; do
+        grep -q "CONFIG_PACKAGE_$plugin=y" .config || echo "CONFIG_PACKAGE_$plugin=y" >> .config
+        done
+        make defconfig
         make download -j8
 
-    - name: 注入菜单修复脚本
-      run: |
-        cd openwrt
-        mkdir -p files/etc/uci-defaults
-        cat <<EOF > files/etc/uci-defaults/99-fix-ui
-        #!/bin/sh
-        # 强制清理 25.12 的顽固 UI 缓存---
-        rm -rf /tmp/luci-indexcache /tmp/luci-modulecache /tmp/luci-modulecache/*
-        /etc/init.d/rpcd restart
-        /etc/init.d/uhttpd restart
-        exit 0
-        EOF
-        chmod +x files/etc/uci-defaults/99-fix-ui
-                
     - name: 编译固件
       id: compile
       run: |
@@ -223,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0327：测试插件有了吗？增加几个插件同时修复其他问。--- 增加到1024。
+              2026-0328：测试插件有了吗？diy2 没有乱七八糟的补丁，测试下docker，softether，协议等问题.
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
