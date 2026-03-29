@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0329：部分插件有了，去掉passwall，dockerman，尝试修复ssh 增加openlist2.
+              2026-0330：部分插件有了，但无dockerman。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
