@@ -205,7 +205,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0328：部分插件有了，去掉passwall，再次尝试修复dockerman，尝试修复ssh 增加openlist2，adguardhome。
+              2026-0329：尝试修复adguardhome。删除video源。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
