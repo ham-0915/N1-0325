@@ -1,4 +1,4 @@
-name: 25.12-diy3
+name: 25.12-1
 
 on:
   repository_dispatch:
@@ -15,7 +15,7 @@ env:
   FEEDS_CONF: N1/Immortalwrt/25.12/TL-feeds.conf.default
   CONFIG_FILE: N1/Immortalwrt/25.12/nan-25.12.config
   DIY_P1_SH: N1/Immortalwrt/25.12/diy-part1.sh
-  DIY_P2_SH: N1/Immortalwrt/25.12/diy-part3.sh
+  DIY_P2_SH: N1/Immortalwrt/25.12/diy-part2.sh
   FILES: N1/Immortalwrt/25.12/files
   TZ: Asia/Shanghai
 
@@ -51,7 +51,9 @@ jobs:
         remove-docker-images: 'true'
 
     - name: 检查Actions
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
+
+
 
     - name: 检查服务器配置
       run: |
@@ -122,14 +124,12 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        # 强制保护我们要的插件
-        PLUGINS="luci-app-passwall luci-app-passwall2 luci-app-nikki luci-app-lucky luci-app-openclash luci-app-adguardhome luci-app-softethervpn luci-app-dockerman luci-compat"
-        for plugin in $PLUGINS; do
-        grep -q "CONFIG_PACKAGE_$plugin=y" .config || echo "CONFIG_PACKAGE_$plugin=y" >> .config
-        done
-        make defconfig
         make download -j8
-
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+        echo "硬盘详情："
+        df -Th
+                
     - name: 编译固件
       id: compile
       run: |
@@ -177,7 +177,7 @@ jobs:
         PACKAGE_SOC: s905d
         KERNEL_AUTO_LATEST: true
         KERNEL_REPO_URL: breakingbadboy/OpenWrt
-        KERNEL_VERSION_NAME: 6.6.y
+        KERNEL_VERSION_NAME: 6.12.y
         
     - name: 整理文件
       run: mv /opt/openwrt_packit/output/* /workdir/upload/
@@ -186,7 +186,7 @@ jobs:
       id: create_release
       run: |
         echo "RELEASE_DATE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
-        echo "RELEASE_TAG=N1-25.123_$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+        echo "RELEASE_TAG=N1-25.121_$(date +%Y%m%d)" >> $GITHUB_OUTPUT
 
     - name: 上传发布
       uses: ncipollo/release-action@v1
@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0328：测试插件有了吗？diy3 有乱七八糟的补丁。
+              2026-0330：部分插件有了，但无dockerman。测试去除步骤7，看插件还有吗？
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
@@ -236,7 +236,6 @@ jobs:
               });
               if (release.tag_name) {
                 github.rest.git.deleteRef({
-                
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   ref: `tags/${release.tag_name}`
