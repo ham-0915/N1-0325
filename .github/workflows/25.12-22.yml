@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0330：部分插件有了，但无dockerman。测试去除步骤7，看插件还有吗？
+              2026-0331：部分插件有了，但无dockerman。测试去除步骤7，看插件还有吗？再测试dockerman。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
