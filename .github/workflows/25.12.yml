@@ -11,12 +11,12 @@ on:
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-25.12
+  REPO_BRANCH: openwrt-24.10
   FEEDS_CONF: N1/Immortalwrt/25.12/TL-feeds.conf.default
   CONFIG_FILE: N1/Immortalwrt/25.12/nan-25.12.config
   DIY_P1_SH: N1/Immortalwrt/25.12/diy-part1.sh
   DIY_P2_SH: N1/Immortalwrt/25.12/diy-part2.sh
-  FILES: N1/Immortalwrt/25.12/files
+  FILES: N1/Immortalwrt/24.10/files
   TZ: Asia/Shanghai
 
 jobs:
@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0330：部分插件有了，但无dockerman。
+              2026-0330：部分插件有了，但无dockerman。测试24.10。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
