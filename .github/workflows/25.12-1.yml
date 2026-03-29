@@ -15,7 +15,7 @@ env:
   FEEDS_CONF: N1/Immortalwrt/25.12/TL-feeds.conf.default
   CONFIG_FILE: N1/Immortalwrt/25.12/nan-25.12.config
   DIY_P1_SH: N1/Immortalwrt/25.12/diy-part1.sh
-  DIY_P2_SH: N1/Immortalwrt/25.12/diy-part2.sh
+  DIY_P2_SH: N1/Immortalwrt/25.12/diy-part22.sh
   FILES: N1/Immortalwrt/25.12/files
   TZ: Asia/Shanghai
 
