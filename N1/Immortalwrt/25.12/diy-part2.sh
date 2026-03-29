@@ -5,7 +5,13 @@ set -e  # 任何命令失败立即退出，防止静默跳过错误
 sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/files/bin/config_generate
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
 
-
+# 2. 修复 apk video 仓库
+mkdir -p package/base-files/files/etc/uci-defaults
+cat > package/base-files/files/etc/uci-defaults/99-fix-apk-video << 'HOOK'
+#!/bin/sh
+sed -i '/video/d' /etc/apk/repositories.d/distfeeds.list
+exit 0
+HOOK
 
 # 3. 升级 Golang 到 26.x
 rm -rf feeds/packages/lang/golang
