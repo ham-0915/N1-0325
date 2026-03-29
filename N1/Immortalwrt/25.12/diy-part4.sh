@@ -49,8 +49,10 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdn
 git clone https://github.com/sbwml/luci-app-openlist2 --depth=1 package/openlist2
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
-# adguardhome 核心包：从 kenzok8 克隆（官方feeds无核心包）
-git clone https://github.com/kenzok8/wall/tree/main/adguardhome --depth=1 package/adguardhome
+# AdGuardHome 核心包（kenzok8/small）
+git clone https://github.com/kenzok8/small.git --depth=1 package/small
+mv package/small/adguardhome package/adguardhome
+rm -rf package/small
 # dockerman：使用 sbwml 的 25.12 适配版
 git clone https://github.com/sbwml/luci-app-dockerman -b openwrt-25.12 --depth=1 package/dockerman
 
