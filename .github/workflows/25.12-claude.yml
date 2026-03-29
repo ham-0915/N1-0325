@@ -9,7 +9,7 @@ env:
   REPO_BRANCH: openwrt-25.12
   FEEDS_CONF: N1/Immortalwrt/25.12/TL-feeds.conf.default
   CONFIG_FILE: N1/Immortalwrt/25.12/nan-25.12-4.config
-  DIY_P1_SH: N1/Immortalwrt/25.12/diy-part1.sh
+  DIY_P1_SH: N1/Immortalwrt/25.12/diy-part11.sh
   DIY_P2_SH: N1/Immortalwrt/25.12/diy-part4.sh
   FILES: N1/Immortalwrt/25.12/files
   TZ: Asia/Shanghai
