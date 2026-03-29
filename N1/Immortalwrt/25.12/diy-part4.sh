@@ -25,14 +25,17 @@ rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 # 清理 feeds 旧版 openlist，防止顶替 openlist2
 rm -rf feeds/packages/net/openlist
 rm -rf feeds/luci/applications/luci-app-openlist
-# 清理 feeds 自带的 adguardhome（核心+luci），避免与 kenzok78 版冲突
+# adguardhome：只删核心包（用官方feeds版），保留 feeds/luci 里的 luci-app-adguardhome
 rm -rf feeds/packages/net/adguardhome
-rm -rf feeds/luci/applications/luci-app-adguardhome
-# 清理 feeds 自带的 dockerman 及 docker 相关包，使用 sbwml 25.12 适配版
+# 清理 feeds 自带的 docker 全家桶，使用 sbwml 25.12 适配版
 rm -rf feeds/luci/applications/luci-app-dockerman
+rm -rf feeds/luci/applications/luci-app-docker
 rm -rf feeds/packages/utils/docker
 rm -rf feeds/packages/utils/dockerd
 rm -rf feeds/packages/utils/docker-compose
+rm -rf feeds/packages/utils/containerd
+rm -rf feeds/packages/utils/runc
+rm -rf feeds/packages/utils/tini
 
 # 5. 克隆 Passwall 2（不克隆 Passwall 1）
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
@@ -46,19 +49,15 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdn
 git clone https://github.com/sbwml/luci-app-openlist2 --depth=1 package/openlist2
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
-# adguardhome：使用 kenzok78 版（含完整 LuCI 界面）
-git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
+# adguardhome 核心包：从 kenzok8 克隆（官方feeds无核心包）
+git clone https://github.com/kenzok8/wall/tree/main/adguardhome --depth=1 package/adguardhome
 # dockerman：使用 sbwml 的 25.12 适配版
 git clone https://github.com/sbwml/luci-app-dockerman -b openwrt-25.12 --depth=1 package/dockerman
 
 # 7. 更新并安装 feeds
 ./scripts/feeds install -a -f
 
-# 8. 强制让编译系统识别 kenzok78 版 adguardhome（含 luci 界面）
-./scripts/feeds install -a -f -p packages adguardhome 2>/dev/null || true
-./scripts/feeds install luci-app-adguardhome 2>/dev/null || true
-
-# 9. 修正 25.12 兼容层的按钮翻译
+# 8. 修正 25.12 兼容层的按钮翻译
 if [ -f feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm ]; then
     sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
     sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
