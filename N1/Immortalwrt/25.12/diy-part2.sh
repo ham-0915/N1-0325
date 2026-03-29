@@ -19,8 +19,7 @@ rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 # 清理 feeds 旧版 openlist，防止顶替 openlist2（日志证实旧版会被自动安装顶上）
 rm -rf feeds/packages/net/openlist
 rm -rf feeds/luci/applications/luci-app-openlist
-# 清理 feeds 自带的 adguardhome luci 界面（避免与 kenzok78 版冲突）
-# rm -rf feeds/luci/applications/luci-app-adguardhome
+
 
 # 5. 克隆 Passwall 2（不克隆 Passwall 1，否则 feeds install -a -f 会把它强制装入固件）
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
@@ -34,8 +33,6 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdn
 git clone https://github.com/sbwml/luci-app-openlist2 --depth=1 package/openlist2
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
-# adguardhome：使用 kenzok78 版（含完整 LuCI 界面），feeds 原版只有核心二进制无界面
-# git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
 
 # 7. 更新并安装 feeds
 ./scripts/feeds install -a -f
