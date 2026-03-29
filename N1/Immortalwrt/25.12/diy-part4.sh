@@ -25,8 +25,6 @@ rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 # 清理 feeds 旧版 openlist，防止顶替 openlist2
 rm -rf feeds/packages/net/openlist
 rm -rf feeds/luci/applications/luci-app-openlist
-# adguardhome：只删核心包（用官方feeds版），保留 feeds/luci 里的 luci-app-adguardhome
-rm -rf feeds/packages/net/adguardhome
 # 清理 feeds 自带的 docker 全家桶，使用 sbwml 25.12 适配版
 rm -rf feeds/luci/applications/luci-app-dockerman
 rm -rf feeds/luci/applications/luci-app-docker
@@ -49,10 +47,7 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 --depth=1 package/mosdn
 git clone https://github.com/sbwml/luci-app-openlist2 --depth=1 package/openlist2
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
-# AdGuardHome 核心包（kenzok8/small）
-git clone https://github.com/kenzok8/small.git --depth=1 package/small
-mv package/small/adguardhome package/adguardhome
-rm -rf package/small
+
 # dockerman：使用 sbwml 的 25.12 适配版
 git clone https://github.com/sbwml/luci-app-dockerman -b openwrt-25.12 --depth=1 package/dockerman
 
