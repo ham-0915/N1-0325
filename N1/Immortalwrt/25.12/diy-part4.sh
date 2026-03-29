@@ -54,7 +54,12 @@ git clone https://github.com/sbwml/luci-app-dockerman -b openwrt-25.12 --depth=1
 # 7. 更新并安装 feeds
 ./scripts/feeds install -a -f
 
-# 8. 修正 25.12 兼容层的按钮翻译
+# 8. 二次清理：feeds install 会重新注册软链接，再删一遍
+rm -rf package/feeds/packages/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
+rm -rf package/feeds/packages/{mosdns,openlist,docker,dockerd,docker-compose,containerd,runc,tini}
+rm -rf package/feeds/luci/{luci-app-passwall,luci-app-passwall2,luci-app-mosdns,luci-app-openlist,luci-app-dockerman,luci-app-docker}
+
+# 9. 修正 25.12 兼容层的按钮翻译
 if [ -f feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm ]; then
     sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
     sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
