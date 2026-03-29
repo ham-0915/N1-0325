@@ -6,9 +6,6 @@ sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/files/bin/config_gener
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
 
 # 2. 删除不存在的 video 仓库，避免 apk update 报错
-mkdir -p package/base-files/files/etc/apk/repositories.d
-# 先等编译系统生成 distfeeds.list 后再删除 video 行（通过 files 覆盖机制处理）
-# 这里用 hook 方式：在 files 目录预置一个删除脚本，由 firstboot 执行
 mkdir -p package/base-files/files/etc/uci-defaults
 cat > package/base-files/files/etc/uci-defaults/99-fix-apk-video << 'HOOK'
 #!/bin/sh
@@ -31,6 +28,11 @@ rm -rf feeds/luci/applications/luci-app-openlist
 # 清理 feeds 自带的 adguardhome（核心+luci），避免与 kenzok78 版冲突
 rm -rf feeds/packages/net/adguardhome
 rm -rf feeds/luci/applications/luci-app-adguardhome
+# 清理 feeds 自带的 dockerman 及 docker 相关包，使用 sbwml 25.12 适配版
+rm -rf feeds/luci/applications/luci-app-dockerman
+rm -rf feeds/packages/utils/docker
+rm -rf feeds/packages/utils/dockerd
+rm -rf feeds/packages/utils/docker-compose
 
 # 5. 克隆 Passwall 2（不克隆 Passwall 1）
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
@@ -46,6 +48,8 @@ git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikk
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
 # adguardhome：使用 kenzok78 版（含完整 LuCI 界面）
 git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
+# dockerman：使用 sbwml 的 25.12 适配版
+git clone https://github.com/sbwml/luci-app-dockerman -b openwrt-25.12 --depth=1 package/dockerman
 
 # 7. 更新并安装 feeds
 ./scripts/feeds install -a -f
