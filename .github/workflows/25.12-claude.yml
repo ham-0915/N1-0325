@@ -203,9 +203,10 @@ jobs:
               网关：192.168.123.2
               用户名：root
               密码：password
-
+              AdGuardHome一键安装脚本：curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+              
               更新日志：
-              2026-0329：尝试修复adguardhome，dockerman js。删除video源。
+              2026-0329：尝试修复 dockerman js。删除video源。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
