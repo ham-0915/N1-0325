@@ -5,9 +5,7 @@ set -e  # 任何命令失败立即退出，防止静默跳过错误
 sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/files/bin/config_generate
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
 
-# 2. 注入 kiddin9 软件源
-mkdir -p package/base-files/files/etc/opkg
-echo "src/gz kiddin9 https://dl.openwrt.ai/releases/25.12/packages/aarch64_cortex-a53/kiddin9" > package/base-files/files/etc/opkg/customfeeds.conf
+
 
 # 3. 升级 Golang 到 26.x
 rm -rf feeds/packages/lang/golang
@@ -22,7 +20,7 @@ rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
 rm -rf feeds/packages/net/openlist
 rm -rf feeds/luci/applications/luci-app-openlist
 # 清理 feeds 自带的 adguardhome luci 界面（避免与 kenzok78 版冲突）
-rm -rf feeds/luci/applications/luci-app-adguardhome
+# rm -rf feeds/luci/applications/luci-app-adguardhome
 
 # 5. 克隆 Passwall 2（不克隆 Passwall 1，否则 feeds install -a -f 会把它强制装入固件）
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
@@ -37,7 +35,7 @@ git clone https://github.com/sbwml/luci-app-openlist2 --depth=1 package/openlist
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikki
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
 # adguardhome：使用 kenzok78 版（含完整 LuCI 界面），feeds 原版只有核心二进制无界面
-git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
+# git clone https://github.com/kenzok78/luci-app-adguardhome --depth=1 package/adguardhome
 
 # 7. 更新并安装 feeds
 ./scripts/feeds install -a -f
