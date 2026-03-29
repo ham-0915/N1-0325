@@ -4,11 +4,6 @@ on:
   repository_dispatch:
   workflow_dispatch:
 
-  # push:      # 已关闭自动触发，需手动在 Actions 页面点击 Run workflow
-  #   branches:
-  #     - main
-  #     - master
-
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-25.12
@@ -106,8 +101,8 @@ jobs:
     - name: 更新feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: 安装feeds
-      run: cd openwrt && ./scripts/feeds install -a
+    - name: 安装feeds        # ← 加了 -f
+      run: cd openwrt && ./scripts/feeds install -a -f
 
     - name: 加载DIY_P2
       run: |
@@ -242,3 +237,4 @@ jobs:
               }
             }
           });
+          
