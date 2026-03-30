@@ -41,7 +41,7 @@ git clone https://github.com/nikkinikki-org/OpenWrt-nikki --depth=1 package/nikk
 git clone https://github.com/vernesong/OpenClash --depth=1 package/openclash
 
 # 7. 更新并安装 feeds
-./scripts/feeds install -a -f
+# ./scripts/feeds install -a -f
 
 # 8. 修正 25.12 兼容层的按钮翻译
 if [ -f feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm ]; then
