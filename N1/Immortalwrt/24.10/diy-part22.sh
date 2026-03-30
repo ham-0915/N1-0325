@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e  # 任何命令失败立即退出，防止静默跳过错误
 
 # 1. 基础环境设置 (IP与主机名)
 sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/files/bin/config_generate
