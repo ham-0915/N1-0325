@@ -9,10 +9,10 @@ on:
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-24.10
-  FEEDS_CONF: N1/Immortalwrt/24.10/TL-feeds.conf.default
+  FEEDS_CONF: N1/Immortalwrt/24.10/2TL-feeds.conf.default
   CONFIG_FILE: N1/Immortalwrt/24.10/2025-0922-mini.config
   DIY_P1_SH: N1/Immortalwrt/24.10/diy-part1.sh
-  DIY_P2_SH: N1/Immortalwrt/24.10/diy-part2.sh
+  DIY_P2_SH: N1/Immortalwrt/24.10/diy-part22.sh
   FILES: N1/Immortalwrt/24.10/files
   TZ: Asia/Shanghai
   UPLOAD_RELEASE: true # 修复：新增此变量以激活最后的旧版本删除步骤
@@ -137,7 +137,7 @@ jobs:
         PACKAGE_SOC: s905d
         KERNEL_AUTO_LATEST: true
         KERNEL_REPO_URL: breakingbadboy/OpenWrt
-        KERNEL_VERSION_NAME: 6.12.y
+        KERNEL_VERSION_NAME: 6.6.y
         
     - name: 整理打包文件
       run: |
@@ -147,7 +147,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         name: OpenWrt-N1 → ${{ env.DATE }}
-        tag: N1-24.10_${{ env.tag_name }}
+        tag: N1-24.101_${{ env.tag_name }}
         artifacts: /workdir/upload/*
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
