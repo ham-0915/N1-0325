@@ -207,7 +207,7 @@ jobs:
               密码：password
 
               更新日志：
-              2026-0330：部分插件有了，但无dockerman。
+              2026-0330：需要的插件基本有了。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@v2
