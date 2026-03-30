@@ -22,12 +22,15 @@ rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2sock
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-passwall2
 rm -rf feeds/luci/applications/luci-app-mosdns feeds/packages/net/mosdns
-# 清理 feeds 旧版 openlist，防止顶替 openlist2（日志证实旧版会被自动安装顶上）
 rm -rf feeds/packages/net/openlist
 rm -rf feeds/luci/applications/luci-app-openlist
+rm -rf feeds/luci/applications/luci-app-lucky
+rm -rf feeds/luci/applications/luci-app-nikki
+rm -rf feeds/luci/applications/luci-app-openclash
+rm -rf feeds/luci/applications/luci-app-openlist2
 
 
-# 5. 克隆 Passwall 2（不克隆 Passwall 1，否则 feeds install -a -f 会把它强制装入固件）
+# 5. 克隆 Passwall 2
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/passwall-packages
 rm -rf package/passwall-packages/shadowsocksr-libev
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall2.git package/passwall2
