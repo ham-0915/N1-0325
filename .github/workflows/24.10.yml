@@ -11,7 +11,7 @@ env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-24.10
   FEEDS_CONF: N1/Immortalwrt/24.10/TL-feeds.conf.default
-  CONFIG_FILE: N1/Immortalwrt/25.12/nan-25.12-4.config
+  CONFIG_FILE: N1/Immortalwrt/24.10/2025-0922.config
   DIY_P1_SH: N1/Immortalwrt/24.10/diy-part1.sh
   DIY_P2_SH: N1/Immortalwrt/24.10/diy-part2.sh
   FILES: N1/Immortalwrt/24.10/files
@@ -188,7 +188,7 @@ jobs:
 
               更新日志：
               2025-0928：本固件所含插件，请看主页图片。
-              2026-0324：同步上游的更新。测试config文件
+              2026-0330：同步上游的更新。测试精简config文件.
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@main
